@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            width: 300px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input-group">
+            <label for="inr_input">INR value (lac crore):</label>
+            <input type="text" id="inr_input" placeholder="0.00" value="100">
+        </div>
+        <div class="input-group">
+            <label for="input_roe_inr_to_usd">Exchange Rate (INR to USD):</label>
+            <input type="text" id="input_roe_inr_to_usd" placeholder="0.00" value="0.0120546">
+        </div>
+        <p id="absolute_inr"></p>
+        <p id="usd_output"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

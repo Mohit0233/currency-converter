@@ -9,44 +9,117 @@
             padding: 20px;
             width: 300px;
         }
+
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .input-group {
             margin-bottom: 15px;
             width: 100%;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
+
         input {
             width: 100%;
             padding: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
         p {
             margin: 5px 0;
+        }
+
+        /* table related css */
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 15px;
+        }
+
+        th {
+            border: 1px solid grey;
+        }
+
+        td {
+            border: 1px solid grey;
+        }
+
+        td:first-child, th:first-child {
+            background-color: rgba(0, 140, 255, 0.47); /* Change this color as needed */
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="input-group">
-            <label for="inr_input">INR value (lac crore):</label>
-            <input type="text" id="inr_input" placeholder="0.00" value="100">
-        </div>
-        <div class="input-group">
-            <label for="input_roe_inr_to_usd">Exchange Rate (INR to USD):</label>
-            <input type="text" id="input_roe_inr_to_usd" placeholder="0.00" value="0.0120546">
-        </div>
-        <p id="absolute_inr"></p>
-        <p id="usd_output"></p>
+<div class="container">
+    <div class="input-group">
+        <label for="inr_input">INR value (lac crore):</label>
+        <input type="text" id="inr_input" placeholder="0.00" value="100">
     </div>
-    <script src="script.js"></script>
+    <div class="input-group">
+        <label for="input_roe_inr_to_usd">Exchange Rate (INR to USD):</label>
+        <input type="text" id="input_roe_inr_to_usd" placeholder="0.00" value="0.0120546">
+    </div>
+    <div class="input-group">
+        <table>
+                <thead>
+                <tr>
+                    <th>Fields</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Absolute INR (₹):</td>
+                    <td id="abs_inr">38</td>
+                </tr>
+                <tr>
+                    <td>With Comma</td>
+                    <td id="inr_with_comma">45</td>
+                </tr>
+                <tr>
+                    <td>Written Value</td>
+                    <td id="inr_str">45</td>
+                </tr>
+                <tr>
+                    <td>Absolute USD:</td>
+                    <td id="abs_usd">45</td>
+                </tr>
+                <tr>
+                    <td>Short USD:</td>
+                    <td id="short_usd">45</td>
+                </tr>
+                <tr>
+                    <td>Written Value USD:</td>
+                    <td id="usd_str">45</td>
+                </tr>
+                </tbody>
+            </table>
+            <p id="absolute_inr">a</p>
+            <p id="usd_output">a</p>
+    </div>
+
+</div>
+<script>
+</script>
+<script src="inr_to_string.js"></script>
+<script src="script.js"></script>
+<script>
+  setup()
+</script>
 </body>
 </html>

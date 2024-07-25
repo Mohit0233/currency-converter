@@ -5,10 +5,12 @@
     <title>Currency Converter</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 13px;
+            background-color: #f0f4f8;
             padding: 20px;
             width: 350px;
-            background: #f7e9e9;
+            margin: 0;
         }
 
         .container {
@@ -30,33 +32,51 @@
 
         .input_curr {
             width: 100%;
-            padding: 5px;
+            font-size: 1rem;
+            padding: 0.5rem;
             border: 1px solid #deb7a7;
-            border-radius: 4px;
             background: #f7e9e9;
+            box-sizing: border-box;
+            border-radius: 4px;
         }
 
-        p {
-            margin: 5px 0;
-        }
 
-        /* table related css */
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 12px;
-            text-align: left;
+            border: 1px solid #deb7a7;
+            border-collapse: separate;
+            border-left: 0;
+            border-radius: 4px;
+            border-spacing: 0;
+        }
+
+        thead {
+            display: table-header-group;
+            border-collapse: separate;
         }
 
         th, td {
             padding: 12px 15px;
-            border: 1px solid #deb7a7;
+            text-align: left;
+            border-left: 1px solid #deb7a7;
+        }
+
+        td {
+            border-top: 1px solid #deb7a7;
+        }
+
+        thead:first-child tr:first-child th:first-child, tbody:first-child tr:first-child td:first-child {
+            border-radius: 4px 0 0 0;
+        }
+
+        thead:last-child tr:last-child th:first-child, tbody:last-child tr:last-child td:first-child {
+            border-radius: 0 0 0 4px;
         }
 
         td:first-child, th:first-child {
-            background-color: #fdb9a3; /* Change this color as needed */
+            width: 70px;
+            background-color: #fdb9a3;
         }
+
 
     </style>
 </head>
@@ -64,7 +84,7 @@
 <div class="container">
     <div class="input_group">
         <label for="inr_input">INR value (lac crore):</label>
-        <input type="text" id="inr_input" class='input_curr' placeholder="0.00" value="12345 crore"
+        <input type="text" id="inr_input" class='input_curr' placeholder="0.00" value="12345"
                oninput="validateInput(event)">
         <p id='formatted_currency' style="font-size: 10px">----</p>
     </div>

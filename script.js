@@ -17,14 +17,14 @@ function submit() {
   const usdStr = document.getElementById("usd_str");
 
   let formattedCurrencyArr = reformatCurrencyArray(inputINR);
-  formattedCurrencyTag.innerText = formattedCurrencyArr.join(' ');
+  formattedCurrencyTag.innerText = '₹' + formattedCurrencyArr.join(' ');
   let intINRValue = inrWordsToNumber(formattedCurrencyArr);
-  inrWithComma.innerText = commaINStandard(intINRValue)
+  inrWithComma.innerText = '₹' + commaINStandard(intINRValue)
   inrStr.innerText = inrToWords(intINRValue);
   inrStrNumericShort.innerText = inrToWords(intINRValue, true, true);
   const outputUSD = intINRValue * exchangeRate;
-  absUsd.innerHTML = commaUSStandard(outputUSD)
-  shortUsd.innerHTML = convertToInternationalCurrencySystem(outputUSD)
+  absUsd.innerHTML = '$' + commaUSStandard(outputUSD)
+  shortUsd.innerHTML = '$' + convertToInternationalCurrencySystem(outputUSD)
   usdStr.innerHTML = convertDollarsAndCents(outputUSD);
 }
 

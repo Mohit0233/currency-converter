@@ -17,7 +17,7 @@
             align-items: center;
         }
 
-        .input-group {
+        .input_group {
             margin-bottom: 15px;
             width: 100%;
         }
@@ -28,7 +28,7 @@
             font-weight: bold;
         }
 
-        input {
+        .input_curr {
             width: 100%;
             padding: 5px;
             border: 1px solid #deb7a7;
@@ -57,21 +57,22 @@
         td:first-child, th:first-child {
             background-color: #fdb9a3; /* Change this color as needed */
         }
+
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="input-group">
+    <div class="input_group">
         <label for="inr_input">INR value (lac crore):</label>
-        <input type="text" id="inr_input" placeholder="0.00" value="12345 crore"
+        <input type="text" id="inr_input" class='input_curr' placeholder="0.00" value="12345 crore"
                oninput="validateInput(event)">
         <p id='formatted_currency' style="font-size: 10px">----</p>
     </div>
-    <div class="input-group">
+    <div class="input_group">
         <label for="input_roe_inr_to_usd">Exchange Rate (INR to USD):</label>
-        <input type="text" id="input_roe_inr_to_usd" placeholder="0.00" value="0.011941231">
+        <input type="text" id="input_roe_inr_to_usd" class='input_curr' placeholder="0.00" value="0.011941231">
     </div>
-    <div class="input-group">
+    <div class="input_group">
         <table>
             <thead>
             <tr>
@@ -82,10 +83,6 @@
             <tbody>
             <tr>
                 <td>INR(₹):</td>
-                <td id="abs_inr">abc</td>
-            </tr>
-            <tr>
-                <td>INR(Comma)</td>
                 <td id="inr_with_comma">abc</td>
             </tr>
             <tr>
@@ -93,7 +90,7 @@
                 <td id="inr_str">abc</td>
             </tr>
             <tr>
-                <td>INR(Words 2):</td>
+                <td>INR(Short):</td>
                 <td id="inr_str_numeric_short">abc</td>
             </tr>
             <tr>
@@ -112,6 +109,8 @@
         </table>
     </div>
 </div>
+
+
 <script>
 </script>
 <script>
@@ -124,6 +123,7 @@
   }
 </script>
 <script src="util.js"></script>
+<script src="inr_words_to_number.js"></script>
 <script src="usd_to_words.js"></script>
 <script src="inr_to_words.js"></script>
 <script src="script.js"></script>

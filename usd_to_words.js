@@ -40,11 +40,7 @@ function convertDollarsAndCents(amount) {
 }
 
 
-// Testing
-
 function testConvertDollarsAndCents() {
-
-
   assert(convertDollarsAndCents('NaN'), 'Invalid Number: NaN');
   assert(convertDollarsAndCents(0), 'Zero Dollars');
   assert(convertDollarsAndCents(0.22), 'Zero Dollars and Twenty Two Cents');
@@ -64,13 +60,6 @@ function testConvertDollarsAndCents() {
   assert(convertDollarsAndCents(8_000_700_600), 'Eight Billion Seven Hundred Thousand Six Hundred Dollars');
   assert(convertDollarsAndCents(123_004_500), 'One Hundred Twenty Three Million Four Thousand Five Hundred Dollars');
   assert(convertDollarsAndCents(9_876_000_000), 'Nine Billion Eight Hundred Seventy Six Million Dollars');
-
-}
-
-
-
-function assert(actual, expected) {
-  if (actual !== expected) console.error(' actual:', actual, '\n', 'expected:', expected);
 }
 
 testConvertDollarsAndCents()

@@ -41,7 +41,7 @@ function initializedConstants(short, numberShouldNumeric) {
   }
 
   if (short) {
-    CRORE = 'cr'
+    CRORE = 'Cr'
     LAKH = 'Lac'
     THOUSAND = 'K'
     HUNDRED = 'H'
@@ -59,6 +59,7 @@ function inrToWords(inputCurrencyString, short = false, numberShouldNumeric = fa
   if (inputCurrencyString === undefined) {
     throw new Error("inrToWords can't be blank");
   }
+  if (inputCurrencyString === '0') return 'Zero'
 
   initializedConstants(short, numberShouldNumeric)
 
@@ -234,10 +235,6 @@ function trimLeadingZeros(str) {
 }
 
 
-function assert(actual, expected) {
-  if (actual !== expected) console.error(' actual:', actual, '\n', 'expected:', expected);
-}
-
 
 function testInrToWords() {
   assert(inrToWords(0), 'Zero')
@@ -268,9 +265,9 @@ function testInrToWords() {
   assert(inrToWords('1000000000000'), 'One Lakh Crore');
   assert(inrToWords('10000000000000'), 'Ten Lakh Crore');
   assert(inrToWords('100000000000000'), 'One Crore Crore');
-  assert(inrToWords('100000000000000', true, true), '1 cr cr');
-  assert(inrToWords('999999999', true, true), '99 cr 99 lac 99 k 9 h 99')
+  assert(inrToWords('100000000000000', true, true), '1 Cr Cr');
+  assert(inrToWords('999999999', true, true), '99 Cr 99 Lac 99 K 9 H 99')
 
 }
 
-// testInrToWords()
+testInrToWords()

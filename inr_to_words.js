@@ -1,4 +1,3 @@
-console.log('inr_to_words.js')
 let units;
 let tens;
 let allDoubles;
@@ -43,9 +42,9 @@ function initializedConstants(short, numberShouldNumeric) {
 
   if (short) {
     CRORE = 'cr'
-    LAKH = 'lac'
-    THOUSAND = 'k'
-    HUNDRED = 'h'
+    LAKH = 'Lac'
+    THOUSAND = 'K'
+    HUNDRED = 'H'
   } else {
     CRORE = 'Crore'
     LAKH = 'Lakh'

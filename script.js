@@ -1,4 +1,3 @@
-console.log('script.js')
 function setup() {
   document.getElementById("inr_input").addEventListener('keyup', submit);
   document.getElementById("input_roe_inr_to_usd").addEventListener('keyup', submit);
@@ -87,12 +86,20 @@ function inrWordsToNumber(currencyWordArray) {
   let resultAbsInrCurrency = '';
 
   for (let lessThenCrorePart of split2DArray) {
+    if (lessThenCrorePart === '') {
+      break;
+    }
     let numberValue = computeNumberValueForInrCurrency(lessThenCrorePart);
     if (numberValue.length > 7) {
       throw new Error(lessThenCrorePart + ' gives ' + numberValue + ' whose length is greter then 7. which should not be possible as we are calculating the value for less the crore');
     }
-    resultAbsInrCurrency += numberValue.toString().padStart(7 - numberValue.length, '0')
+    if (numberValue === 0) {
+      resultAbsInrCurrency +=  ''.padEnd(7, '0');
+    } else {
+      resultAbsInrCurrency += numberValue.toString().padEnd(7, '0')
+    }
   }
+
   return resultAbsInrCurrency.toString();
 }
 

@@ -3,109 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Currency Converter</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 13px;
-            background-color: #f7e9e9;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-
-            width: 500px;
-            height: 600px;
-        }
-
-        .input_group {
-            margin-bottom: 15px;
-            width: 100%;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #34495e;
-            font-weight: bold;
-        }
-
-        .input_curr {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #f7e9e9;
-            border-radius: 4px;
-            font-size: 1rem;
-            box-sizing: border-box;
-        }
-
-        h1 {
-            color: #2c3e50;
-            margin-top: 0;
-            font-size: 1.5rem;
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        thead {
-            display: table-header-group;
-            border-collapse: separate;
-        }
-
-        th, td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #f7e9e9;
-        }
-
-        th {
-            background-color: #f7e9e9;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        th:first-child {
-            border-radius: 4px 0 0 4px;
-        }
-
-        th:last-child {
-            border-radius: 0 4px 4px 0;
-        }
-
-
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container">
     <h1>Currency Converter</h1>
     <div class="input_group">
         <label for="inr_input">INR value (lac crore):</label>
-        <input type="text" id="inr_input" class='input_curr' placeholder="0.00" value="12345"
+        <input type="text" id="inr_input" class='input_curr' placeholder="0.00" value="15.22 lac crore"
                oninput="validateInput(event)">
         <p id='formatted_currency' style="font-size: 10px">----</p>
     </div>
     <div class="input_group">
-        <label for="input_roe_inr_to_usd">Exchange Rate (INR to USD):</label>
-        <input type="text" id="input_roe_inr_to_usd" class='input_curr' placeholder="0.00" value="0.011941231">
+        <label for="input_roe_usd_to_inr">Exchange Rate (USD to INR):</label>
+        <div class="">
+            <input type="text" id="input_roe_usd_to_inr" class='input_curr width-80' placeholder="0.00" value="0.000">
+            <button id="fetch_exchange_rate_button">Fetch</button>
+            <p id="inr_to_usd_exchange" >Exchange Rate 1 USD = 01.00 INR, Last Updated: Release Date</p>
+        </div>
+
     </div>
-    <div class="input_group">
+    <div class="input_group table-container">
         <table>
             <thead>
             <tr>
@@ -116,27 +34,27 @@
             <tbody>
             <tr>
                 <td>INR(₹):</td>
-                <td id="inr_with_comma">abc</td>
+                <td id="inr_with_comma" class="mono"><i style="color: grey">Error</i></td>
             </tr>
             <tr>
                 <td>INR(Words):</td>
-                <td id="inr_str">abc</td>
+                <td id="inr_str"><i style="color: grey">Error</i></td>
             </tr>
             <tr>
                 <td>INR(Short):</td>
-                <td id="inr_str_numeric_short">abc</td>
+                <td id="inr_str_numeric_short"><i style="color: grey">Error</i></td>
             </tr>
             <tr>
                 <td>USD($):</td>
-                <td id="abs_usd">abc</td>
+                <td id="abs_usd" class="mono"><i style="color: grey">Error</i></td>
             </tr>
             <tr>
                 <td>USD(Short):</td>
-                <td id="short_usd">abc</td>
+                <td id="short_usd"><i style="color: grey">Error</i></td>
             </tr>
             <tr>
                 <td>USD(Words):</td>
-                <td id="usd_str">abc</td>
+                <td id="usd_str"><i style="color: grey">Error</i></td>
             </tr>
             </tbody>
         </table>
@@ -155,10 +73,20 @@
     }
   }
 </script>
+
+<script src="hardcoded_data.js"></script>
+
 <script src="util.js"></script>
+<script src="how_much_time_ago.js"></script>
 <script src="inr_words_to_number.js"></script>
 <script src="usd_to_words.js"></script>
 <script src="inr_to_words.js"></script>
+
+<!--exchange_rate-->
+<script src="exchange_rate/fetch_exchange_rate.js"></script>
+<script src="exchange_rate/local_storage.js"></script>
+<script src="exchange_rate/updateDOM.js"></script>
+
 <script src="script.js"></script>
 <script>
   setup();

@@ -8,7 +8,7 @@ function inrWordsToNumber(currencyWordArray) {
 
     let currNumber = calcAbsNumberValueForLessThenCroreValue(lessThenCrorePart);
     if (currNumber.length > 7) {
-      throw new Error(lessThenCrorePart + ' gives ' + currNumber + ' whose length is greter then 7. which should not be possible as we are calculating the value for less the crore');
+      throw new Error(lessThenCrorePart + ' gives ' + currNumber + ' whose length is greater then 7. which should not be possible as we are calculating the value for less the crore');
     }
     if (i === 0) {
       resultAbsInrCurrency += currNumber;
@@ -52,11 +52,14 @@ function calcAbsNumberValueForLessThenCroreValue(lessThenCrorePart) {
   return result;
 }
 
-
+// Use proper currency terms here, inrWordsToNumber don't have logic to handle typos
 function testInrWordsToNumber() {
   assert(inrWordsToNumber(['1', 'crore', '23', 'lakh', '45', 'thousand', '678']), '12345678')
   assert(inrWordsToNumber(['23', 'lakh', '45', 'thousand', '678', 'crore', '23', 'lakh', '45', 'thousand', '678']), '23456782345678')
   assert(inrWordsToNumber(['12345', 'crore']), '123450000000')
+  assert(inrWordsToNumber(["15.5", "lakh", "crore"]), "15500000000000")
+  assert(inrWordsToNumber(["15.55", "lakh", "crore"]), "15550000000000")
+  // actual: 15550000000000  !=  expected: 15500000000000
 }
 
 testInrWordsToNumber()

@@ -1,12 +1,18 @@
 function setup() {
   document.getElementById("inr_input").addEventListener('keyup', submit);
-  document.getElementById("input_roe_inr_to_usd").addEventListener('keyup', submit);
+  document.getElementById("input_roe_usd_to_inr").addEventListener('keyup', submit);
+  document.getElementById("input_roe_usd_to_inr").addEventListener('keyup', manuallyUpdateExchangeRateDisplay);
+  document.getElementById("fetch_exchange_rate_button").addEventListener('click', onClickUpdateExchangeRate);
+
+  setExchangeRateFromLocalStorage()
+  autoUpdateExchangeRangeFetchButtonState()
   submit()
+
 }
 
 function submit() {
   const inputINR = document.getElementById("inr_input").value;
-  const exchangeRate = parseFloat(document.getElementById("input_roe_inr_to_usd").value);
+  const exchangeRate = parseFloat((1 / parseFloat(document.getElementById("input_roe_usd_to_inr").value)).toFixed(5));
 
   const formattedCurrencyTag = document.getElementById("formatted_currency");
   const inrWithComma = document.getElementById("inr_with_comma");
@@ -19,13 +25,25 @@ function submit() {
   let formattedCurrencyArr = reformatCurrencyArray(inputINR);
   formattedCurrencyTag.innerText = '₹' + formattedCurrencyArr.join(' ');
   let intINRValue = inrWordsToNumber(formattedCurrencyArr);
-  inrWithComma.innerText = '₹' + commaINStandard(intINRValue)
+  let inrWithCommaValue = "Error";
+  if (intINRValue !== 'NaN') {
+    inrWithCommaValue = '₹' + commaINStandard(intINRValue) + " (" + countLastZeros(intINRValue) + " zeros at last)";
+  }
+  inrWithComma.innerText = inrWithCommaValue;
   inrStr.innerText = inrToWords(intINRValue);
   inrStrNumericShort.innerText = inrToWords(intINRValue, true, true);
-  const outputUSD = intINRValue * exchangeRate;
-  absUsd.innerHTML = '$' + commaUSStandard(outputUSD)
-  shortUsd.innerHTML = '$' + convertToInternationalCurrencySystem(outputUSD)
-  usdStr.innerHTML = convertDollarsAndCents(outputUSD);
+
+  if (intINRValue !== 'NaN') {
+    const outputUSD = intINRValue * exchangeRate;
+    absUsd.innerHTML = '$' + commaUSStandard(outputUSD);
+    shortUsd.innerHTML = '$' + convertToInternationalCurrencySystem(outputUSD)
+    usdStr.innerHTML = convertDollarsAndCents(outputUSD);
+  } else {
+    absUsd.innerHTML = "Error";
+    shortUsd.innerHTML = "Error";
+    usdStr.innerHTML = "Error";
+  }
+
 }
 
 function convertToInternationalCurrencySystem(labelValue) {
@@ -38,31 +56,28 @@ function convertToInternationalCurrencySystem(labelValue) {
 }
 
 function reformatCurrencyArray(currency) {
-  const lakhsList = ["l", "lac", "lakh", "lakhs"];
+  const lakhsList = ["l", "lac", "lak", "lakh", "lkah", "lahks", "laskh", "lach", "lakhs"];
   const crList = ["c", "cr", "crore", "coreo", "crores"];
   const kList = ["k", "th", "thousand", "thousandsa", "thousands"]
-  const hList = ["h", "hundered", "hundred", "hundreds"]
-  const millionList = ["m", "mill", "mil", "million", "millions"]
-  const billionList = ["b", "bill", "bil", "billion", "billions"]
-  const million = 1000_000
-  const billion = 1000_000_000
-  const lakh = 100000;
-  const cr = 10000000;
-
-  let parts = currency.trim()
-    .replaceAll(",", "")
-    .replaceAll("_", "")
-    .toLowerCase()
-    .match(/\d+|\D+/g); // used for 100million -> 100 million
-
-
+  const hList = ["h", "handured", "heundred", "hundresd", "hundered", "hundred", "hundreds"]
+  // const millionList = ["m", "mill", "mil", "million", "millions"]
+  // const billionList = ["b", "bill", "bil", "billion", "billions"]
+  // const million = 1000_000
+  // const billion = 1000_000_000
+  // const lakh = 100000;
+  // const cr = 10000000;
+  let currencyTrimmed = currency.trim();
+  let currencyWithoutComma = currencyTrimmed.replaceAll(",", "");
+  let currencyWithoutUnderscoreAndComma = currencyWithoutComma.replaceAll("_", "");
+  let currencyLowerCaseWithoutCommaAndUnderscore = currencyWithoutUnderscoreAndComma.toLowerCase();
+  let arrOfNumbersAndWordsOfCurrency = currencyLowerCaseWithoutCommaAndUnderscore.match(/[0-9.]+|[a-zA-Z]+/g);  // any number([0-9.]+) or(|)  any word ([a-zA-Z]+)
   let reformattedCurrencyArray = [];
 
-  if (parts == null) {
+  if (arrOfNumbersAndWordsOfCurrency == null) {
     return [];
   }
 
-  for (let part of parts) {
+  for (let part of arrOfNumbersAndWordsOfCurrency) {
     part = part.trim();
     if (isNumeric(part)) {
       reformattedCurrencyArray.push(part);

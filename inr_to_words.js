@@ -73,39 +73,44 @@ function inrToWords(inputCurrencyString, short = false, numberShouldNumeric = fa
   if (inputCurrencyString === '0') return 'Zero'
 
   let isLastPar = false;
+  try {
+    while (inputCurrencyString.length !== 0) {
+      if (inputCurrencyString.length <= 7) {
+        isLastPar = true;
+      }
+      let exactDigits = extractLastNDigits(inputCurrencyString, 7)
+      exactDigits = trimLeadingZeros(exactDigits);
+      let len = exactDigits.length;
+      if (len === 7) {
+        resultStr = handle7Digits(exactDigits).trim() + resultStr;
+      } else if (len === 6) {
+        resultStr = handle6Digits(exactDigits).trim() + resultStr;
+      } else if (len === 5) {
+        resultStr = handle5Digits(exactDigits).trim() + resultStr;
+      } else if (len === 4) {
+        resultStr = handle4Digits(exactDigits, isLastPar).trim() + resultStr;
+      } else if (len === 3) {
+        resultStr = handle3Digits(exactDigits).trim() + resultStr;
+      } else if (len === 2) {
+        resultStr = handle2Digits(exactDigits).trim() + resultStr;
+      } else if (len === 1) {
+        resultStr = handle1Digits(exactDigits).trim() + resultStr;
+      }
+      inputCurrencyString = trimLastNDigits(inputCurrencyString, 7);
 
-  while (inputCurrencyString.length !== 0) {
-    if (inputCurrencyString.length <= 7) {
-      isLastPar = true;
-    }
-    let exactDigits = extractLastNDigits(inputCurrencyString, 7)
-    exactDigits = trimLeadingZeros(exactDigits);
-    let len = exactDigits.length;
-    if (len === 7) {
-      resultStr = handle7Digits(exactDigits).trim() + resultStr;
-    } else if (len === 6) {
-      resultStr = handle6Digits(exactDigits).trim() + resultStr;
-    } else if (len === 5) {
-      resultStr = handle5Digits(exactDigits).trim() + resultStr;
-    } else if (len === 4) {
-      resultStr = handle4Digits(exactDigits, isLastPar).trim() + resultStr;
-    } else if (len === 3) {
-      resultStr = handle3Digits(exactDigits).trim() + resultStr;
-    } else if (len === 2) {
-      resultStr = handle2Digits(exactDigits).trim() + resultStr;
-    } else if (len === 1) {
-      resultStr = handle1Digits(exactDigits).trim() + resultStr;
-    }
-    inputCurrencyString = trimLastNDigits(inputCurrencyString, 7);
+      if (inputCurrencyString.length !== 0) {
+        resultStr = " " + CRORE + " " + resultStr.trim();
+      }
 
-    if (inputCurrencyString.length !== 0) {
-      resultStr = " " + CRORE + " " + resultStr.trim();
     }
 
+    return resultStr.trim();
+
+  } catch (e) {
+    console.warn("Handle 👇")
+    console.error(e);
+    return 'Error'
   }
-
-  return resultStr.trim();
-
 }
 
 // lakhs + thousands + hundreds
@@ -233,7 +238,6 @@ function extractLastNDigits(str, digitsToExtract) {
 function trimLeadingZeros(str) {
   return str.replace(/^0+/, ''); // Return '0' if the result is an empty string
 }
-
 
 
 function testInrToWords() {

@@ -25,11 +25,15 @@ function submit() {
   let formattedCurrencyArr = reformatCurrencyArray(inputINR);
   formattedCurrencyTag.innerText = '₹' + formattedCurrencyArr.join(' ');
   let intINRValue = inrWordsToNumber(formattedCurrencyArr);
-  let inrWithCommaValue = "Error";
   if (intINRValue !== 'NaN') {
-    inrWithCommaValue = '₹' + commaINStandard(intINRValue) + " (" + countLastZeros(intINRValue) + " zeros at last)";
+    const inrMain = '₹' + commaINStandard(intINRValue);
+    const zerosAtLast = countLastZeros(intINRValue);
+    inrWithComma.innerHTML =
+      `<span class="results_value_main">${inrMain}</span>` +
+      `<span class="results_subnote">${zerosAtLast} zeros at last</span>`;
+  } else {
+    inrWithComma.textContent = "Error";
   }
-  inrWithComma.innerText = inrWithCommaValue;
   inrStr.innerText = inrToWords(intINRValue);
   inrStrNumericShort.innerText = inrToWords(intINRValue, true, true);
 

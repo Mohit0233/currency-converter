@@ -46,10 +46,15 @@ function setExchangeRateFromLocalStorage() {
 function updateExchangeRateDisplay(exchangeRate, lastUpdated) {
   const inputExchangeRateElement = document.getElementById("input_roe_usd_to_inr");
   const pUsdToInrElement = document.getElementById("inr_to_usd_exchange");
+  const pExchangeUpdated = document.getElementById("exchange_updated");
 
   inputExchangeRateElement.value = exchangeRate.toString();
-  pUsdToInrElement.innerText = "Exchange Rate 1 INR = " + (1 / exchangeRate).toFixed(5).toString() + " USD, LastUpdated: " + timeAgo(parseInt(lastUpdated));
-
+  pUsdToInrElement.innerText = "₹1 = $" + (1 / exchangeRate).toFixed(5).toString();
+  
+  if (pExchangeUpdated) {
+    const updatedText = lastUpdated === "Release Date" ? "Release Date" : timeAgo(parseInt(lastUpdated));
+    pExchangeUpdated.innerText = "Updated: " + updatedText;
+  }
 }
 
 

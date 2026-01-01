@@ -9,58 +9,56 @@
 <body>
 <div class="container">
     <h1>Currency Converter</h1>
-    <div class="input_group">
-        <label for="inr_input">INR value (lac crore):</label>
-        <input type="text" id="inr_input" class='input_curr' placeholder="0.00" value="15.22 lac crore"
-               oninput="validateInput(event)">
-        <p id='formatted_currency' style="font-size: 10px">----</p>
+    <div class="top_inputs">
+        <div class="input_group">
+            <label for="inr_input">INR value (lac crore):</label>
+            <input type="text" id="inr_input" class='input_curr' placeholder="0.00" value="15.22 lac crore"
+                   oninput="validateInput(event)">
+            <p id='formatted_currency'>----</p>
+        </div>
+        <div class="input_group">
+            <label for="input_roe_usd_to_inr">Exchange ($➤₹):</label>
+            <div class="rate_row">
+                <input type="text" id="input_roe_usd_to_inr" class='input_curr' placeholder="0.00" value="0.000">
+                <button id="fetch_exchange_rate_button" aria-label="Refresh exchange rate"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg></button>
+            </div>
+            <div class="exchange_note">
+                <p id="inr_to_usd_exchange">₹1 = $0.01113</p>
+                <p id="exchange_updated" class="exchange_updated_text">Updated: Release Date</p>
+            </div>
+        </div>
     </div>
-    <div class="input_group">
-        <label for="input_roe_usd_to_inr">Exchange Rate (USD to INR):</label>
-        <div class="">
-            <input type="text" id="input_roe_usd_to_inr" class='input_curr width-80' placeholder="0.00" value="0.000">
-            <button id="fetch_exchange_rate_button">Fetch</button>
-            <p id="inr_to_usd_exchange" >Exchange Rate 1 USD = 01.00 INR, Last Updated: Release Date</p>
+    <div class="input_group results_card">
+        <div class="results_hero">
+            <div class="results_hero_label">USD (Short)</div>
+            <div id="short_usd" class="results_hero_value mono"><i style="color: grey">Error</i></div>
         </div>
 
-    </div>
-    <div class="input_group table-container">
-        <table>
-            <thead>
-            <tr>
-                <th>Fields</th>
-                <th>Value</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>USD(Short):</td>
-                <td id="short_usd"><i style="color: grey">Error</i></td>
-            </tr>
-            <tr>
-                <td>USD($):</td>
-                <td id="abs_usd" class="mono"><i style="color: grey">Error</i></td>
-            </tr>
+        <div class="results_section">
+            <div class="results_row">
+                <div class="k">USD</div>
+                <div id="abs_usd" class="v mono"><i style="color: grey">Error</i></div>
+            </div>
+            <div class="results_row has_subnote">
+                <div class="k">INR</div>
+                <div id="inr_with_comma" class="v mono"><i style="color: grey">Error</i></div>
+            </div>
+        </div>
 
-            <tr>
-                <td>USD(Words):</td>
-                <td id="usd_str"><i style="color: grey">Error</i></td>
-            </tr>
-            <tr>
-                <td>INR(₹):</td>
-                <td id="inr_with_comma" class="mono"><i style="color: grey">Error</i></td>
-            </tr>
-            <tr>
-                <td>INR(Words):</td>
-                <td id="inr_str"><i style="color: grey">Error</i></td>
-            </tr>
-            <tr>
-                <td>INR(Short):</td>
-                <td id="inr_str_numeric_short"><i style="color: grey">Error</i></td>
-            </tr>
-
-            </tbody>
-        </table>
+        <div class="results_section results_section_small">
+            <div class="results_row">
+                <div class="k">INR (Short)</div>
+                <div id="inr_str_numeric_short" class="v mono"><i style="color: grey">Error</i></div>
+            </div>
+            <div class="results_row">
+                <div class="k">Words</div>
+                <div id="usd_str" class="v"><i style="color: grey">Error</i></div>
+            </div>
+            <div class="results_row">
+                <div class="k">INR (Words)</div>
+                <div id="inr_str" class="v"><i style="color: grey">Error</i></div>
+            </div>
+        </div>
     </div>
 </div>
 

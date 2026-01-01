@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.ico">
+</head>
+<body>
+<div class="container">
+    <h1>Currency Converter</h1>
+    <div class="input_group">
+        <label for="inr_input">INR value (lac crore):</label>
+        <input type="text" id="inr_input" class='input_curr' placeholder="0.00" value="15.22 lac crore"
+               oninput="validateInput(event)">
+        <p id='formatted_currency'>----</p>
+    </div>
+    <div class="input_group">
+        <label for="input_roe_usd_to_inr">Exchange Rate (USD to INR):</label>
+        <div class="exchange_row">
+            <input type="text" id="input_roe_usd_to_inr" class='input_curr width-80' placeholder="0.00" value="0.000">
+            <button id="fetch_exchange_rate_button">Fetch</button>
+            <p id="inr_to_usd_exchange" >Exchange Rate 1 USD = 01.00 INR, Last Updated: Release Date</p>
+        </div>
+
+    </div>
+    <div class="input_group results_card">
+        <div class="results_hero">
+            <div class="results_hero_label">USD (Short)</div>
+            <div id="short_usd" class="results_hero_value mono"><i style="color: grey">Error</i></div>
+        </div>
+
+        <div class="results_section">
+            <div class="results_section_title">Compact</div>
+            <div class="results_row">
+                <div class="k">USD</div>
+                <div id="abs_usd" class="v mono"><i style="color: grey">Error</i></div>
+            </div>
+            <div class="results_row has_subnote">
+                <div class="k">INR</div>
+                <div id="inr_with_comma" class="v mono"><i style="color: grey">Error</i></div>
+            </div>
+        </div>
+
+        <div class="results_section">
+            <div class="results_section_title">Ultra compact</div>
+            <div class="results_row">
+                <div class="k">INR (Short)</div>
+                <div id="inr_str_numeric_short" class="v mono"><i style="color: grey">Error</i></div>
+            </div>
+            <div class="results_row">
+                <div class="k">Words</div>
+                <div id="usd_str" class="v"><i style="color: grey">Error</i></div>
+            </div>
+            <div class="results_row">
+                <div class="k">INR (Words)</div>
+                <div id="inr_str" class="v"><i style="color: grey">Error</i></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="template_gallery">
+    <h2>Layout templates (pick one)</h2>
+    <p class="template_hint">These are static mocks below the app; no IDs here, so your JS won’t be affected.</p>
+
+    <div class="template_grid">
+        <section class="template_card">
+            <div class="template_title">Template A — Hero + compact list</div>
+            <div class="template_mock">
+                <div class="mock_hero">
+                    <div class="mock_label">USD (Short)</div>
+                    <div class="mock_value mono">$169.40B</div>
+                </div>
+                <div class="mock_rows">
+                    <div class="mock_row"><span>USD</span><span class="mono">$169,398,600,000</span></div>
+                    <div class="mock_row"><span>INR</span><span class="mono">₹1,52,20,00,00,00,000</span></div>
+                    <div class="mock_row"><span>Notes</span><span>Words + extra fields in small text</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="template_card">
+            <div class="template_title">Template B — Two-column stats</div>
+            <div class="template_mock">
+                <div class="mock_split">
+                    <div class="mock_stat">
+                        <div class="mock_label">USD (Short)</div>
+                        <div class="mock_value mono">$169.40B</div>
+                    </div>
+                    <div class="mock_stat">
+                        <div class="mock_label">INR (Short)</div>
+                        <div class="mock_value mono">15 Lac 22 K Cr</div>
+                    </div>
+                </div>
+                <div class="mock_caption">Secondary details below in smaller text.</div>
+            </div>
+        </section>
+
+        <section class="template_card">
+            <div class="template_title">Template C — Minimal table (hero first row)</div>
+            <div class="template_mock">
+                <table class="mock_table">
+                    <tbody>
+                    <tr class="mock_primary"><td>USD (Short)</td><td class="mono">$169.40B</td></tr>
+                    <tr><td>USD</td><td class="mono">$169,398,600,000</td></tr>
+                    <tr><td>INR</td><td class="mono">₹1,52,20,00,00,00,000</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="template_card">
+            <div class="template_title">Template D — Hero + compact list + tiny KPIs</div>
+            <div class="template_mock">
+                <div class="mock_hero">
+                    <div>
+                        <div class="mock_label">USD (Short)</div>
+                        <div class="mock_value mono">$169.40B</div>
+                    </div>
+                    <div class="mock_kpis">
+                        <div class="mock_kpi"><span class="mock_kpi_label">Rate</span><span class="mono">89.88</span></div>
+                        <div class="mock_kpi"><span class="mock_kpi_label">Updated</span><span>9m</span></div>
+                    </div>
+                </div>
+                <div class="mock_rows">
+                    <div class="mock_row"><span>USD</span><span class="mono">$169,398,600,000</span></div>
+                    <div class="mock_row"><span>INR</span><span class="mono">₹1,52,20,00,00,00,000</span></div>
+                    <div class="mock_row"><span class="muted">Words</span><span class="muted">One Hundred Sixty Nine Billion…</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="template_card">
+            <div class="template_title">Template E — Hero + “less column” pills</div>
+            <div class="template_mock">
+                <div class="mock_hero">
+                    <div class="mock_label">USD (Short)</div>
+                    <div class="mock_value mono">$169.40B</div>
+                </div>
+                <div class="mock_pills">
+                    <div class="mock_pill"><span>USD</span><span class="mono">$169,398,600,000</span></div>
+                    <div class="mock_pill"><span>INR</span><span class="mono">₹1,52,20,00,00,00,000</span></div>
+                    <div class="mock_pill"><span>INR (Short)</span><span class="mono">15 Lac 22 K Cr</span></div>
+                </div>
+                <div class="mock_caption">Everything secondary becomes small “pills”.</div>
+            </div>
+        </section>
+
+        <section class="template_card">
+            <div class="template_title">Template F — Hero + ultra-compact list</div>
+            <div class="template_mock">
+                <div class="mock_hero">
+                    <div class="mock_label">USD (Short)</div>
+                    <div class="mock_value mono">$169.40B</div>
+                </div>
+                <div class="mock_rows_dense">
+                    <div class="mock_row_dense">
+                        <span class="k">USD</span>
+                        <span class="v mono">$169,398,600,000</span>
+                    </div>
+                    <div class="mock_row_dense">
+                        <span class="k">INR</span>
+                        <span class="v mono">₹1,52,20,00,00,00,000</span>
+                    </div>
+                    <div class="mock_row_dense">
+                        <span class="k">INR (Short)</span>
+                        <span class="v mono">15 Lac 22 K Cr</span>
+                    </div>
+                    <div class="mock_row_dense">
+                        <span class="k muted">Words</span>
+                        <span class="v muted">One Hundred Sixty Nine Billion Three Hundred Ninety Eight Million…</span>
+                    </div>
+                </div>
+                <div class="mock_footer muted">Designed for maximum info density while keeping the hero clean.</div>
+            </div>
+        </section>
+
+        <section class="template_card">
+            <div class="template_title">Template G — Hero + compact list + ultra-compact list (3 levels)</div>
+            <div class="template_mock">
+                <!-- Level 1: Hero -->
+                <div class="mock_hero">
+                    <div class="mock_label">USD (Short)</div>
+                    <div class="mock_value mono">$169.40B</div>
+                </div>
+
+                <!-- Level 2: Compact list (readable) -->
+                <div class="mock_section">
+                    <div class="mock_section_title">Compact</div>
+                    <div class="mock_rows_compact">
+                        <div class="mock_row_compact"><span>USD</span><span class="mono">$169,398,600,000</span></div>
+                        <div class="mock_row_compact"><span>INR</span><span class="mono">₹1,52,20,00,00,00,000</span></div>
+                    </div>
+                </div>
+
+                <!-- Level 3: Ultra-compact list (dense) -->
+                <div class="mock_section">
+                    <div class="mock_section_title">Ultra compact</div>
+                    <div class="mock_rows_ultra">
+                        <div class="mock_row_ultra"><span class="k">INR (Short)</span><span class="v mono">15 Lac 22 K Cr</span></div>
+                        <div class="mock_row_ultra"><span class="k muted">Words</span><span class="v muted">One Hundred Sixty Nine Billion Three Hundred Ninety Eight Million…</span></div>
+                        <div class="mock_row_ultra"><span class="k muted">Rate</span><span class="v muted">1 INR = 0.01113 USD</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<script>
+</script>
+<script>
+  function validateInput(event) {
+    const restrictedChars = /[*@&!#$^()%:;'\[\]{}\-=/+\\|"]/;
+    const inputField = event.target;
+    if (restrictedChars.test(inputField.value)) {
+      inputField.value = inputField.value.replace(restrictedChars, '');
+    }
+  }
+</script>
+
+<script src="hardcoded_data.js"></script>
+
+<script src="util.js"></script>
+<script src="how_much_time_ago.js"></script>
+<script src="inr_words_to_number.js"></script>
+<script src="usd_to_words.js"></script>
+<script src="inr_to_words.js"></script>
+
+<!--exchange_rate-->
+<script src="exchange_rate/fetch_exchange_rate.js"></script>
+<script src="exchange_rate/local_storage.js"></script>
+<script src="exchange_rate/updateDOM.js"></script>
+
+<script src="script.js"></script>
+<script>
+  setup();
+</script>
+
+</body>
+</html>
